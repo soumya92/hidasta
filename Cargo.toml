@@ -6,6 +6,9 @@ authors = ["Soumya <soumyasr@google.com>"]
 edition = "2018"
 readme = "README.md"
 license = "Apache-2.0"
+repository = "https://github.com/soumya92/hidasta"
+keywords = ["cli", "shell", "wait"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 getopts = "0.2"
