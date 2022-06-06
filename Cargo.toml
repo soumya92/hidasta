@@ -13,5 +13,5 @@ categories = ["command-line-utilities"]
 [dependencies]
 getopts = "0.2"
 mio = { version = "0.7", features = ["os-poll", "uds"] }
-nix = "0.17"
+nix = "0.20"
 slab = "0.4"
