@@ -78,27 +78,21 @@ fn daemonize() -> Result<bool> {
 	use std::io;
 	use std::process::exit;
 
-	fork()
+	unsafe { fork() }
 		.and_then(|r| match r {
 			ForkResult::Child => {
 				setsid()?;
 				close(0)?;
 				close(1)?;
 				close(2)?;
-				fork().map(|r| match r {
+				unsafe { fork() }.map(|r| match r {
 					ForkResult::Parent { .. } => exit(0),
 					ForkResult::Child => true,
 				})
 			}
 			ForkResult::Parent { .. } => Ok(false),
 		})
-		.map_err(|e| {
-			if let Some(errno) = e.as_errno() {
-				io::Error::from(errno)
-			} else {
-				io::Error::new(io::ErrorKind::Other, e)
-			}
-		})
+		.map_err(|e| io::Error::from(e))
 }
 
 fn socket_token(idx: usize) -> Token {
